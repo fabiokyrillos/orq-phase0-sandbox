@@ -1,6 +1,6 @@
 import unittest
 
-from greet import farewell, greet, shout
+from greet import farewell, greet, shout, whisper
 
 
 class GreetTests(unittest.TestCase):
@@ -24,6 +24,13 @@ class GreetTests(unittest.TestCase):
     def test_shout_empty_name_raises(self):
         with self.assertRaises(ValueError):
             shout("")
+
+    def test_whisper_returns_whisper(self):
+        self.assertEqual(whisper("Ana"), "hello, ana...")
+
+    def test_whisper_empty_name_raises(self):
+        with self.assertRaises(ValueError):
+            whisper("")
 
 
 if __name__ == "__main__":

@@ -44,8 +44,10 @@ class ReadingTimeTests(unittest.TestCase):
             reading_time(_text(10), words_per_minute=-5)
 
     def test_reading_time_invalid_speed_raises_even_for_empty_text(self):
-        with self.assertRaises(ValueError):
-            reading_time("", words_per_minute=0)
+        for words_per_minute in (0, -5):
+            with self.subTest(words_per_minute=words_per_minute):
+                with self.assertRaises(ValueError):
+                    reading_time("", words_per_minute=words_per_minute)
 
 
 if __name__ == "__main__":

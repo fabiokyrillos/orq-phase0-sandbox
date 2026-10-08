@@ -4,11 +4,17 @@ from slug import slugify
 
 
 class SlugifyTests(unittest.TestCase):
-    def test_slugify_removes_accents(self):
-        self.assertEqual(slugify("Olá Mundo!"), "ola-mundo")
+    def test_slugify_punctuation_becomes_single_separator(self):
+        self.assertEqual(slugify("Hello, World!"), "hello-world")
 
-    def test_slugify_removes_accents_from_many_letters(self):
-        self.assertEqual(slugify("ação é Ótima"), "acao-e-otima")
+    def test_slugify_trims_and_collapses_mixed_separators(self):
+        self.assertEqual(slugify("  --A  b--  "), "a-b")
+
+    def test_slugify_replaces_accented_letters_with_separator(self):
+        self.assertEqual(slugify("Olá Mundo!"), "ol-mundo")
+
+    def test_slugify_replaces_many_accented_letters_with_separators(self):
+        self.assertEqual(slugify("ação é Ótima"), "a-o-tima")
 
     def test_slugify_lowercases_text(self):
         self.assertEqual(slugify("HELLO World"), "hello-world")
